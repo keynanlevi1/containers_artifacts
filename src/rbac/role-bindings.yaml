@@ -1,0 +1,62 @@
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: api-user-api-ns-binding
+  namespace: api
+subjects:
+- kind: User
+  name: 32914a16-78de-4885-b409-1343d31dce3b #<aad-user-object-id>
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: api_writer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: api-user-web-ns-role-binding
+  namespace: web
+subjects:
+- kind: User
+  name: 32914a16-78de-4885-b409-1343d31dce3b #<aad-user-object-id>
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: api_reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: web-user-api-ns-role-binding
+  namespace: api
+subjects:
+- kind: User
+  name: 345369af-ab52-4bd9-ab76-55f532f98371 #<aad-user-object-id>
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: web_reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: web-user-web-ns-role-binding
+  namespace: web
+subjects:
+- kind: User
+  name: 345369af-ab52-4bd9-ab76-55f532f98371 #<aad-user-object-id>
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: web_writer
+  apiGroup: rbac.authorization.k8s.io
